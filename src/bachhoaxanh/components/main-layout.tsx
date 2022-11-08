@@ -4,6 +4,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../app/theme';
 import CssGlobal from './css-global';
 import Navbar from './navbar';
+import Body from './body';
 
 export interface MainLayoutProps{
 
@@ -15,11 +16,13 @@ export default function MainLayout(props: PropsWithChildren<MainLayoutProps>){
 
   return <ThemeProvider theme={ theme }>
     <CssBaseline />
-    <StyledEngineProvider injectFirst>
+    {/* <StyledEngineProvider injectFirst> */}
       <CssGlobal />
-    </StyledEngineProvider>
+    {/* </StyledEngineProvider> */}
     <Navbar />
-    { children }
+    <Body>
+      { children }
+    </Body>
   </ThemeProvider>
 
 }

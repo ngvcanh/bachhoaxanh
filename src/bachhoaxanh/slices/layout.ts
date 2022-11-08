@@ -8,13 +8,19 @@ export interface SidebarMenu{
   children?: SidebarMenu[];
 }
 
+export interface LayoutNavbar{
+  searchMessage: string[];
+}
+
 export interface LayoutSidebar{
   menu: SidebarMenu[];
   defaultSearchBoard: Omit<SidebarMenu, 'children'>[];
+
 }
 
 export interface LayoutState{
   sidebar: LayoutSidebar;
+  navbar: LayoutNavbar;
 }
 
 const initialState: LayoutState = {
@@ -113,6 +119,15 @@ const initialState: LayoutState = {
         text: "Mua phiếu mua hàng",
         url: "dat-mua-phieu-mua-hang"
       }
+    ]
+  },
+  navbar: {
+    searchMessage: [
+      'Bạn tìm gì?',
+      'Thịt cá, rau củ cái gì cũng có!',
+      'Uniliver vô vàn giảm giá',
+      'Hàng tiêu dùng tìm gì cũng có!',
+      'Giao nhanh, đơn ít cũng giao!'
     ]
   }
 }

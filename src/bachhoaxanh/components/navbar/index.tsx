@@ -16,7 +16,11 @@ export default function Navbar(){
   return <NavbarRoot>
     <Container sx={{
       display: 'flex',
-      alignItems: 'flex-start'
+      alignItems: 'flex-start',
+      pointerEvents: 'none',
+      '*': {
+        pointerEvents: 'all'
+      }
     }}>
       <NavbarSidebar />
       <NavbarHeader />
