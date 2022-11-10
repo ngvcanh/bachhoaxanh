@@ -1,5 +1,7 @@
-import { MouseEvent, SyntheticEvent, useEffect, useState } from "react";
+import { MouseEvent, SyntheticEvent, useEffect, useMemo, useState } from "react";
 import { hexToRgb, styled, SxProps, Theme } from "@mui/system";
+import { Category } from "../types/scheme/category";
+import { Product } from "../types/scheme/product";
 import Card, { CardProps } from "@mui/material/Card";
 import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import Box from "@mui/material/Box";
@@ -9,8 +11,12 @@ import CardContent from "@mui/material/CardContent";
 import ProductItem from "./product-item";
 import ButtonLink from "./button-link";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import NextLink from 'next/link';
+import Link from "@mui/material/Link";
 
-export interface ProductCardProps extends CardProps{
+export interface ProductCardProps extends Omit<CardProps, 'variant'>{
   title: string;
   color: string;
   opacity?: number;
@@ -19,6 +25,9 @@ export interface ProductCardProps extends CardProps{
   count?: number;
   onChangeActive?(value: number): void;
   onViewMore?(e: MouseEvent<HTMLAnchorElement>): void;
+  variant?: 'outlined' | 'contained';
+  categories?: Category[];
+  products: Product[];
 }
 
 const StyledCard = styled(Card)(() => ({
@@ -40,7 +49,31 @@ const StyledTitle = styled(Box)(() => ({
   }
 }));
 
-export default function ProductCard(props: ProductCardProps){
+const CateList = styled(List)(() => ({
+  display: 'flex',
+  flexWrap: 'wrap',
+  width: '100%',
+  padding: '10px'
+}));
+
+const CateItem = styled(ListItem)(() => ({
+  flexGrow: 1,
+  flexBasis: '25%',
+  padding: 0
+}));
+
+const CateLink = styled(Link)(({ theme }) => ({
+  display: 'inline-block',
+  fontSize: '13px',
+  color: theme.palette.info.main,
+  textDecoration: 'none',
+  lineHeight: '26px',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis'
+}));
+
+export default function ProductCard<P extends object, C extends object>(props: ProductCardProps){
 
   const { 
     title, 
@@ -52,6 +85,9 @@ export default function ProductCard(props: ProductCardProps){
     onChangeActive,
     onViewMore,
     count,
+    variant = 'contained',
+    products,
+    categories,
     ...rest
   } = props;
 
@@ -70,6 +106,10 @@ export default function ProductCard(props: ProductCardProps){
     e.preventDefault();
     onViewMore?.(e);
   }
+
+  const hasExtra = useMemo(() => {
+    return !!products.filter(product => !!product.extra).length;
+  }, [ products ]);
 
   return <StyledCard
     { ...rest }
@@ -154,15 +194,13 @@ export default function ProductCard(props: ProductCardProps){
         pb: '0!important'
       }}
     >
-      <ProductItem product={{}} />
-      <ProductItem product={{}} />
-      <ProductItem product={{}} />
-      <ProductItem product={{}} />
-
-      <ProductItem product={{}} />
-      <ProductItem product={{}} />
-      <ProductItem product={{}} />
-      <ProductItem product={{}} />
+      {products.map(product => (
+        <ProductItem 
+          key={ product.id }
+          product={ product } 
+          hasExtra={ hasExtra }
+        />
+      ))}
     </CardContent>
     {!!count && (
       <ButtonLink 
@@ -179,6 +217,22 @@ export default function ProductCard(props: ProductCardProps){
         Xem thêm { count } sản phẩm
         <ArrowRightIcon fontSize="small" />
       </ButtonLink>
+    )}
+    {!!categories?.length && (
+      <CateList>
+        {categories.map(cate => (
+          <CateItem key={ cate.id }>
+            <NextLink 
+              href={ cate.url }
+              passHref
+            >
+              <CateLink>
+                { cate.name }
+              </CateLink>
+            </NextLink>
+          </CateItem>
+        ))}
+      </CateList>
     )}
   </StyledCard>
 

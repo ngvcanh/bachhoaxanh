@@ -6,7 +6,8 @@ const useGlobal = makeStyles(() => ({
     body: {
       backgroundColor: config.layout.bgcolor,
       color: '#333',
-      font: '14px/18px Helvetica,Arial,sans-serif'
+      font: '14px/16px Helvetica,Arial,sans-serif',
+      fontSize: '14px'
     }
   }
 }));

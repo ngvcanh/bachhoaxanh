@@ -34,11 +34,11 @@ export default function GroupCate(){
         flexWrap: 'nowrap'
       }}
     >
-      {categories.map((cate, index) => (
+      {categories.map(cate => (
         <Category
-          key={ index }
+          key={ cate.id }
           name={ cate.name }
-          image={ cate.image }
+          image={ cate.image ?? '' }
           url={ cate.url }
         />
       ))}

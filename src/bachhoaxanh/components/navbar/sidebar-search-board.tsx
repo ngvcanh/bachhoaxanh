@@ -6,7 +6,7 @@ import FactCheckIcon from '@mui/icons-material/FactCheck';
 import Menu from "./sidebar-menu";
 import NextLink from 'next/link';
 import Button from "@mui/material/Button";
-import { SidebarMenu } from "src/bachhoaxanh/slices/layout";
+import { SidebarMenu } from "src/bachhoaxanh/types/sidebar";
 
 interface SearchBoardProps{
   text: string;

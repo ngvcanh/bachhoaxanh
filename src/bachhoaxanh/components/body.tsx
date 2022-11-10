@@ -3,6 +3,7 @@ import { styled } from "@mui/system";
 import { PropsWithChildren } from "react";
 import config from "../app/config";
 import Container from "./container";
+import Footer from "./footer";
 
 const StyledBody = styled(Box)(() => ({
   marginTop: `${ config.layout.navbar.height }px`
@@ -21,6 +22,7 @@ export default function Body(props: PropsWithChildren){
     <Container>
       <StyledContainer>
         { children }
+        <Footer />
       </StyledContainer>
     </Container>
   </StyledBody>

@@ -1,14 +1,14 @@
+import { styled } from "@mui/system";
+import { svgIconClasses } from "@mui/material/SvgIcon";
+import { Banner } from "../types/scheme/banner";
+import IconButton, { iconButtonClasses } from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Slider from "react-slick";
-import { Banner } from "../slices/home";
-import 'slick-carousel/slick/slick.css';
-import "slick-carousel/slick/slick-theme.css";
 import ButtonLink from "./button-link";
-import { styled } from "@mui/system";
-import IconButton, { iconButtonClasses } from "@mui/material/IconButton";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-import { svgIconClasses } from "@mui/material/SvgIcon";
+import 'slick-carousel/slick/slick.css';
+import "slick-carousel/slick/slick-theme.css";
 
 export interface SliderBannerProps{
   banners: Banner[];
@@ -108,9 +108,9 @@ export default function SliderBanner(props: SliderBannerProps){
       </IconArrow>
     }
   >
-    {banners.map((banner, index) => (
+    {banners.map(banner => (
       <ButtonLink
-        key={ index }
+        key={ banner.id }
         href={ banner.url }
         sx={{
           height: '100%',

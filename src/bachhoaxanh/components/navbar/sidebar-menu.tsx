@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { SidebarMenu } from "src/bachhoaxanh/slices/layout";
 import { svgIconClasses } from "@mui/material/SvgIcon";
+import { SidebarMenu } from "src/bachhoaxanh/types/sidebar";
 import Button, { buttonClasses } from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";

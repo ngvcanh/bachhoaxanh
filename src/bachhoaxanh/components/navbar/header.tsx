@@ -40,7 +40,9 @@ export default function NavbarHeader(){
         color: '#fff',
         textTransform: 'revert',
         textAlign: 'center',
-        lineHeight: 1.2
+        lineHeight: 1.2,
+        fontSize: '13px',
+        fontWeight: 400
       }}
     >
       Đơn hàng của bạn
