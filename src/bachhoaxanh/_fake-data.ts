@@ -263,6 +263,7 @@ export const products: Product[] = [
     category_id: 1,
     sale_price: 99000,
     original_price: 0,
+    wholesale: true,
     unit: 'đ',
     promotional_gift: {
       id: 1,

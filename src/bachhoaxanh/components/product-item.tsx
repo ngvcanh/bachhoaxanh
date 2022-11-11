@@ -1,11 +1,14 @@
 import { styled, SxProps, Theme } from "@mui/system";
 import { Product } from "../types/scheme/product";
 import Box, { BoxProps } from "@mui/material/Box";
+import Button, { ButtonProps } from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import NextLink from 'next/link';
 import clsx from 'clsx';
-import formatPrice, { FormatPriceOptions } from "../helpers/format-price";
-import Button, { ButtonProps } from "@mui/material/Button";
+import formatPrice from "../helpers/format-price";
+import Wholesale from "./wholesale";
+import Promotion from "./promotion";
+import Price from "./price";
 
 export interface ProductItemProps extends BoxProps{
   product: Product;
@@ -15,7 +18,6 @@ export interface ProductItemProps extends BoxProps{
 const StyledProduct = styled(Box)(() => ({
   width: '245px',
   minWidth: '245px',
-  // height: '350px',
   border: '1px solid #eee',
   display: 'flex',
   flexDirection: 'column',
@@ -38,7 +40,8 @@ const ProductLink = styled(Link)(() => ({
   flexDirection: 'column',
   textDecoration: 'none',
   padding: '8px 8px 0',
-  justifyContent: 'flex-start'
+  justifyContent: 'flex-start',
+  position: 'relative'
 }));
 
 const ProductTitle = styled(Box)(() => ({
@@ -73,64 +76,6 @@ const Meta = styled(Box)(() => ({
     verticalAlign: 'middle',
     marginRight: '3px'
   }
-}));
-
-const PriceBox = styled(Box)(() => ({
-  width: '100%'
-}));
-
-const PriceSale = styled(Box)(() => ({
-  color: '#b10e0e',
-  fontSize: '13px',
-  marginRight: '7px'
-}));
-
-const PriceOrigin = styled(Box)(() => ({
-  color: '#757575',
-  fontSize: '13px',
-  marginRight: '7px',
-  textDecoration: 'line-through'
-}));
-
-const Discount = styled(Box)(() => ({
-  display: 'inline-block',
-  fontSize: '12px',
-  color: '#fff',
-  borderRadius: '3px',
-  backgroundColor: '#de2000',
-  width: '32px',
-  height: '20px',
-  textAlign: 'center',
-  verticalAlign: 'middle'
-}));
-
-const GiftBox = styled(Box)(() => ({
-  display: 'flex',
-  flex: 1,
-  height: '36px',
-  alignItems: 'center',
-  width: '100%',
-  marginTop: '10px'
-}));
-
-const GiftImage = styled(Box)<BoxProps<'img'>>(() => ({
-  width: '36px',
-  height: '36px',
-  minWidth: '36px',
-  objectFit: 'cover',
-  objectPosition: 'center'
-}));
-
-const GiftName = styled(Box)(() => ({
-  width: '100%',
-  fontSize: '12px',
-  lineHeight: '18px',
-  marginLeft: '3px',
-  color: '#626262',
-  whiteSpace: 'initial',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  maxHeight: '36px'
 }));
 
 interface ButtonBoxProps extends ButtonProps{
@@ -173,8 +118,6 @@ const ButtonExtra = styled(Button)(({ theme }) => ({
   }
 }));
 
-const discount = (p1: number, p2: number) => (((p1 - p2) / p1) * 100).toFixed(0);
-
 export default function ProductItem(props: ProductItemProps){
 
   const { product, className, sx, hasExtra, ...rest } = props;
@@ -196,6 +139,9 @@ export default function ProductItem(props: ProductItemProps){
           src={ product.image ?? '' }
           alt={ product.name }
         />
+        {product.wholesale && (
+          <Wholesale />
+        )}
         <ProductTitle component="span">
           { product.name }
         </ProductTitle>
@@ -204,32 +150,13 @@ export default function ProductItem(props: ProductItemProps){
             { product.meta }
           </Meta>
         )}
-        <PriceBox>
-          <PriceSale component="span">
-            { formatPrice(product.sale_price, options) }
-          </PriceSale>
-          {product.original_price > 0 && (
-            <>
-              <PriceOrigin component="span">
-                { formatPrice(product.original_price, options) }
-              </PriceOrigin>
-              <Discount component="span">
-                { `-${ discount(product.original_price, product.sale_price) }%` }
-              </Discount>
-            </>
-          )}
-        </PriceBox>
+        <Price
+          sale={ product.sale_price }
+          unit={ product.unit }
+          original={ product.original_price }
+        />
         {!!product.promotional_gift && (
-          <GiftBox>
-            <GiftImage
-              component="img"
-              src={ product.promotional_gift.image ?? '' }
-              alt={ product.promotional_gift.name }
-            />
-            <GiftName>
-              { product.promotional_gift.name }
-            </GiftName>
-          </GiftBox>
+          <Promotion promo={ product.promotional_gift } />
         )}
       </ProductLink>
     </NextLink>

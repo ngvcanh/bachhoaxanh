@@ -11,6 +11,7 @@ import ListItem from "@mui/material/ListItem";
 import ButtonLink, { ButtonLinkProps } from "./button-link";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import FileOpenIcon from '@mui/icons-material/FileOpen';
+import ShippingRole from "./shipping-role";
 
 const SmallLink = styled(ButtonLink)(({ theme, variant }) => ({
   textTransform: 'revert',
@@ -67,7 +68,8 @@ export default function Footer(){
       borderRadius: 0
     }}>
       <CardContent sx={{ p: 0, pb: '0!important' }}>
-        <Box sx={{
+        <ShippingRole />
+        {/* <Box sx={{
           display: 'flex',
           flex: 1,
           py: '16px',
@@ -106,7 +108,7 @@ export default function Footer(){
               Đổi, trả sản phẩm <strong>trong 7 ngày</strong>
             </Box>
           </Box>
-        </Box>
+        </Box> */}
         <Grid container spacing={ 0 }>
           <Grid item md={ 7 }>
             <Typography 

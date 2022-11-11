@@ -17,4 +17,6 @@ export interface Product{
   promotional_gift?: PromotionalGift;
   meta?: string;
   extra?: ProductExtra;
+  wholesale?: boolean;
+  gallery?: string[];
 }

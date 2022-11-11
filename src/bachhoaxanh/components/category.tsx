@@ -43,7 +43,8 @@ export default function Category(props: CategoryProps){
         fontSize: '13px',
         display: 'inline-block',
         textAlign: 'center',
-        px: '5px'
+        px: '5px',
+        fontWeight: 400
       }}
     >{ name }</Box>
   </ButtonLink>
